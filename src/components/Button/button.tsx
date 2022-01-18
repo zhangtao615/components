@@ -14,6 +14,7 @@ interface BaseButtonProps {
   btnType?: ButtonType;
   children: React.ReactNode;
   href?: string;
+  label?: string;
 }
 // 定义类型别名， 通过React.ButtonHTMLAttributes<HTMLElement>/React.AnchorHTMLAttributes<HTMLElement>获取button/a下所有的属性并使用交叉类型合并所有属性
 type NativeButtonProps = BaseButtonProps & React.ButtonHTMLAttributes<HTMLElement>
@@ -29,6 +30,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     size,
     children,
     href,
+    label,
     ...restProps
   } = props
   const classes = classNames('btn', className, {
@@ -43,7 +45,7 @@ const Button: React.FC<ButtonProps> = (props) => {
         href={href}
         {...restProps}
       >
-        {children}
+        { children ? children : label }
       </a>
     )
   } else {
@@ -53,7 +55,7 @@ const Button: React.FC<ButtonProps> = (props) => {
         disabled={disabled}
         {...restProps}
       >
-        {children}
+        { children ? children : label }
       </button>
     )
   }
